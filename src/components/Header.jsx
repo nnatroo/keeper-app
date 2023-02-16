@@ -1,9 +1,10 @@
 import React from "react";
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 
 function Header() {
   return (
     <header>
-      <h1>Keeper</h1>
+      <h1><TextSnippetIcon />Natrokeep</h1>
     </header>
   );
 }

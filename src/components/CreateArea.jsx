@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import AddIcon from '@mui/icons-material/Add';
+import { Fab } from "@mui/material";
+import { Zoom } from '@mui/material';
+
 
 function CreateArea(props) {
 
   const [note, setNote] = useState({title: "", 
-                                    content: ""})
+                                    content: ""});
+  
+  const [collapseArea, setCollapseArea] = useState(true)
 
   const handleChange = (event) => {
     const inputName = event.target.name
@@ -19,20 +25,35 @@ function CreateArea(props) {
 
 
   const handleSubmit = (event) => {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
+    if (note.title !== "" || note.content !== ""){
+      props.onAdd(note);
+      setNote({
+        title: "",
+        content: ""
     })
+    } else {
+      alert("Fill each of these input !")
+    }
+
     event.preventDefault();
+    
+  }
+
+  const handleFocus = () => {
+    setCollapseArea(false);
   }
   
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input value={note.title} onChange={handleChange} name="title" placeholder="Title" />
-        <textarea value={note.content} onChange={handleChange} name="content" placeholder="Take a note..." rows="3" />
-        <button type="submit">Add</button>
+      <form className="create-note" onSubmit={handleSubmit}>
+        {!collapseArea?<input value={note.title} onChange={handleChange} name="title" placeholder="Title" />: null}
+        <textarea onFocus={handleFocus} value={note.content} onChange={handleChange} name="content" placeholder="Take a note..." rows={collapseArea? 1 : 3} />
+        <Zoom in={!collapseArea}>
+          <Fab type="submit" color="primary" aria-label="add">
+            <AddIcon />
+          </Fab>
+        </Zoom>
+        
       </form>
     </div>
   );
