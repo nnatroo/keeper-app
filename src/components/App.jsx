@@ -7,20 +7,19 @@ import CreateArea from "./CreateArea";
 const App = () => {
   const [notes, setNotes] = useState([]);
 
-  // useEffect(() => {
-  //   let localNotes = localStorage.getItem("notes");
-  //   if (localNotes) {
-  //     localNotes = JSON.parse(localStorage.getItem("notes"));
-  //   } else {
-  //     localNotes = [];
-  //   }
-  //   setNotes(localNotes);
-  //   // console.log(notes);
-  // }, []);
+  useEffect(() => {
+    let localNotes = localStorage.getItem("notes");
+    if (localNotes) {
+      localNotes = JSON.parse(localStorage.getItem("notes"));
+    } else {
+      localNotes = [];
+    }
+    setNotes(localNotes);
+  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("notes", JSON.stringify(notes));
-  // }, [notes]);
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const handleAdd = (newNote) => {
     setNotes((prevNotes) => {
